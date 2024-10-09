@@ -20,6 +20,12 @@ def get_by_id(id: int):
         return user
 
 
+def get_all():
+    with Session.begin() as session:
+        user_select = select(User)
+        return session.scalars(user_select).all()
+
+
 def find_user(user: User):
     with Session.begin() as session:
         user_select = select(User).where(
