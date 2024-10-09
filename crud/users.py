@@ -4,7 +4,7 @@ from db import Session
 from models import User
 
 
-def create_user(user: User):
+def create(user: User):
     with Session.begin() as session:
         try:
             session.add(user)
@@ -18,6 +18,15 @@ def get_by_id(id: int):
         user_select = select(User).where(User.id == id)
         user = session.scalar(user_select)
         return user
+
+
+def find_user(user: User):
+    with Session.begin() as session:
+        user_select = select(User).where(
+            User.name == user.name, User.password == user.password
+        )
+        user_in_db = session.scalar(user_select)
+        return user_in_db
 
 
 def update(id: int, new_user: User):
