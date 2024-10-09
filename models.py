@@ -6,7 +6,7 @@ class Base(DeclarativeBase):
     pass
 
 
-class UserBase(Base):
+class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -18,11 +18,11 @@ class UserBase(Base):
         return f"UserBase(id={self.id}, name={self.name}, email={self.email}, password={self.password})"
 
 
-class RequestBase(Base):
+class Request(Base):
     __tablename__ = "requests"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey(UserBase.id))
+    user_id: Mapped[int] = mapped_column(ForeignKey(User.id))
     logo: Mapped[str]
     short_descr: Mapped[str]
     sites: Mapped[str]
