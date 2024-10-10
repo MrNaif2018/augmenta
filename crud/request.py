@@ -6,7 +6,11 @@ from models import Request
 
 def create(request: Request):
     with Session.begin() as session:
-        session.add(request)
+        try:
+            session.add(request)
+        except Exception:
+            return False
+        return True
 
 
 def get_by_id(id: int):
@@ -23,16 +27,9 @@ def get_by_user_id(user_id: int):
         return request
 
 
-def update(id: int, new_request: Request):
+def update(new_request: Request):
     with Session.begin() as session:
-        request_select = select(Request).where(Request.id == id)
-        request = session.scalar(request_select)
-        if request == None:
-            return False
-        for key, value in new_request.__dict__.items():
-            if key != "id" and key != "_sa_instance_state" and value is not None:
-                setattr(request, key, value)
-        return request
+        session.merge(new_request)
 
 
 def delete(id: int):

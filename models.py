@@ -1,5 +1,3 @@
-from typing import List
-
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -28,17 +26,17 @@ class Request(Base):
     logo: Mapped[str]
     short_descr: Mapped[str]
     sites: Mapped[str]
-    contacts: Mapped[List[str]]
-    socnets: Mapped[List[str]]
+    contacts: Mapped[list[str]]
+    socnets: Mapped[list[str]]
     int_facts: Mapped[str]
     short_hist: Mapped[str]
-    partners: Mapped[List[str]]
+    partners: Mapped[list[str]]
     capital: Mapped[str]
     ownership: Mapped[str]
     jurisdiction: Mapped[str]
-    products: Mapped[List[str]]
-    products_info: Mapped[List[str]]
-    products_logo: Mapped[List[str]]
-    employees_num: Mapped[List[str]]
-    management: Mapped[List[str]]
-    branches: Mapped[List[str]]
+    products: Mapped[list[str]]
+    products_info: Mapped[list[str]]
+    products_logo: Mapped[list[str]]
+    employees_num: Mapped[list[str]]
+    management: Mapped[list[str]]
+    branches: Mapped[list[str]]

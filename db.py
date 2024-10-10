@@ -3,5 +3,6 @@ from sqlalchemy.orm import sessionmaker
 
 from settings import Settings
 
-engine = create_engine(Settings.connection_str, echo=True)
+settings = Settings()
+engine = create_engine(settings.connection_str, echo=True)
 Session = sessionmaker(engine)

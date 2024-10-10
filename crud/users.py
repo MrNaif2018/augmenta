@@ -8,7 +8,7 @@ def create(user: User):
     with Session.begin() as session:
         try:
             session.add(user)
-        except:
+        except Exception:
             return False
         return True
 
@@ -35,16 +35,9 @@ def find_user(user: User):
         return user_in_db
 
 
-def update(id: int, new_user: User):
+def update(new_user: User):
     with Session.begin() as session:
-        user_select = select(User).where(User.id == id)
-        user = session.scalar(user_select)
-        if user == None:
-            return False
-        for key, value in new_user.__dict__.items():
-            if key != "id" and key != "_sa_instance_state" and value is not None:
-                setattr(user, key, value)
-        return user
+        session.merge(new_user)
 
 
 def delete(id: int):
