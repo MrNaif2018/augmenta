@@ -1,10 +1,11 @@
 from typing import List
 
-from fastapi import HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 import crud.users as users
-from app import app
+
+router = APIRouter()
 
 
 class UserIn(BaseModel):
@@ -18,12 +19,12 @@ class UserOut(BaseModel):
     email: str
 
 
-@app.get("/users/all", response_model=List[UserOut])
+@router.get("/all", response_model=List[UserOut])
 def get_all_users():
     return users.get_all()
 
 
-@app.get("/users/{id}")
+@router.get("/{id}")
 def get_user(id: int):
     user = users.get_by_id(id)
     if user == None:
