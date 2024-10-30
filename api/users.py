@@ -24,7 +24,7 @@ def get_all_users():
 @router.get("/{id}", response_model=User)
 def get_user(id: int):
     user = users.get_by_id(id)
-    if user == None:
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
@@ -34,7 +34,7 @@ def get_user(id: int):
 @router.get("/check", response_model=User)
 def check_user(user: UserIn):
     user = users.find_user(user)
-    if user == None:
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
