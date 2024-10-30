@@ -56,7 +56,7 @@ def update_user(user: UserIn):
     return users.find_user(user)
 
 
-@router.delete("/delete")
+@router.delete("/delete/{id}")
 def delete_user(id: int):
     if not users.delete(id):
         raise HTTPException(
