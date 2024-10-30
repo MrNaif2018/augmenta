@@ -25,12 +25,13 @@ class Request(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey(User.id))
+    name: Mapped[str]
     logo: Mapped[str]
     short_descr: Mapped[str]
-    sites: Mapped[str]
+    sites: Mapped[List[str]] = mapped_column(ARRAY(String))
     contacts: Mapped[List[str]] = mapped_column(ARRAY(String))
     socnets: Mapped[List[str]] = mapped_column(ARRAY(String))
-    int_facts: Mapped[str]
+    int_facts: Mapped[List[str]] = mapped_column(ARRAY(String))
     short_hist: Mapped[str]
     partners: Mapped[List[str]] = mapped_column(ARRAY(String))
     capital: Mapped[str]
@@ -39,6 +40,6 @@ class Request(Base):
     products: Mapped[List[str]] = mapped_column(ARRAY(String))
     products_info: Mapped[List[str]] = mapped_column(ARRAY(String))
     products_logo: Mapped[List[str]] = mapped_column(ARRAY(String))
-    employees_num: Mapped[List[str]] = mapped_column(ARRAY(String))
+    employees_num: Mapped[int | None]
     management: Mapped[List[str]] = mapped_column(ARRAY(String))
     branches: Mapped[List[str]] = mapped_column(ARRAY(String))
