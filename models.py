@@ -1,5 +1,3 @@
-from typing import List
-
 from sqlalchemy import ARRAY, ForeignKey, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -28,18 +26,18 @@ class Request(Base):
     name: Mapped[str]
     logo: Mapped[str]
     short_descr: Mapped[str]
-    sites: Mapped[List[str]] = mapped_column(ARRAY(String))
-    contacts: Mapped[List[str]] = mapped_column(ARRAY(String))
-    socnets: Mapped[List[str]] = mapped_column(ARRAY(String))
-    int_facts: Mapped[List[str]] = mapped_column(ARRAY(String))
+    sites: Mapped[list[str]] = mapped_column(ARRAY(String))
+    contacts: Mapped[list[str]] = mapped_column(ARRAY(String))
+    socnets: Mapped[list[str]] = mapped_column(ARRAY(String))
+    int_facts: Mapped[list[str]] = mapped_column(ARRAY(String))
     short_hist: Mapped[str]
-    partners: Mapped[List[str]] = mapped_column(ARRAY(String))
+    partners: Mapped[list[str]] = mapped_column(ARRAY(String))
     capital: Mapped[str]
     ownership: Mapped[str]
     jurisdiction: Mapped[str]
-    products: Mapped[List[str]] = mapped_column(ARRAY(String))
-    products_info: Mapped[List[str]] = mapped_column(ARRAY(String))
-    products_logo: Mapped[List[str]] = mapped_column(ARRAY(String))
+    products: Mapped[list[str]] = mapped_column(ARRAY(String))
+    products_info: Mapped[list[str]] = mapped_column(ARRAY(String))
+    products_logo: Mapped[list[str]] = mapped_column(ARRAY(String))
     employees_num: Mapped[int | None]
-    management: Mapped[List[str]] = mapped_column(ARRAY(String))
-    branches: Mapped[List[str]] = mapped_column(ARRAY(String))
+    management: Mapped[list[str]] = mapped_column(ARRAY(String))
+    branches: Mapped[list[str]] = mapped_column(ARRAY(String))
