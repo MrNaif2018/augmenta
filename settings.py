@@ -1,5 +1,5 @@
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     db_password: str = Field("", validation_alias="DB_PASSWORD")
     db_host: str = Field("127.0.0.1", validation_alias="DB_HOST")
     db_port: int = Field(5432, validation_alias="DB_PORT")
+
+    model_config = SettingsConfigDict(env_file="conf/.env", extra="ignore")
 
     @property
     def connection_str(self):

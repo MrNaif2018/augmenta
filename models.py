@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ARRAY, ForeignKey, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -23,20 +23,21 @@ class Request(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey(User.id))
+    name: Mapped[str]
     logo: Mapped[str]
     short_descr: Mapped[str]
-    sites: Mapped[str]
-    contacts: Mapped[list[str]]
-    socnets: Mapped[list[str]]
-    int_facts: Mapped[str]
+    sites: Mapped[list[str]] = mapped_column(ARRAY(String))
+    contacts: Mapped[list[str]] = mapped_column(ARRAY(String))
+    socnets: Mapped[list[str]] = mapped_column(ARRAY(String))
+    int_facts: Mapped[list[str]] = mapped_column(ARRAY(String))
     short_hist: Mapped[str]
-    partners: Mapped[list[str]]
+    partners: Mapped[list[str]] = mapped_column(ARRAY(String))
     capital: Mapped[str]
     ownership: Mapped[str]
     jurisdiction: Mapped[str]
-    products: Mapped[list[str]]
-    products_info: Mapped[list[str]]
-    products_logo: Mapped[list[str]]
-    employees_num: Mapped[list[str]]
-    management: Mapped[list[str]]
-    branches: Mapped[list[str]]
+    products: Mapped[list[str]] = mapped_column(ARRAY(String))
+    products_info: Mapped[list[str]] = mapped_column(ARRAY(String))
+    products_logo: Mapped[list[str]] = mapped_column(ARRAY(String))
+    employees_num: Mapped[int | None]
+    management: Mapped[list[str]] = mapped_column(ARRAY(String))
+    branches: Mapped[list[str]] = mapped_column(ARRAY(String))
