@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -18,7 +16,7 @@ class UserIn(User):
     password: str
 
 
-@router.get("/all", response_model=List[User])
+@router.get("/all", response_model=list[User])
 def get_all_users():
     return users.get_all()
 
