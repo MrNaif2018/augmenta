@@ -23,7 +23,7 @@ def get_by_id(id: int):
 def get_by_user_id(user_id: int):
     with Session.begin() as session:
         request_select = select(Request).where(Request.user_id == user_id)
-        request = session.scalar(request_select)
+        request = session.scalars(request_select).fetchall()
         return request
 
 
