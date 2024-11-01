@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
-from db import Session
-from models import Request
+# from api.db import Session
+from api.models import Request
 
 
 def create(request: Request):

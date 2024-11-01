@@ -1,12 +1,14 @@
+from fastapi_sqlalchemy import ModelBase, SQLAlchemy
 from sqlalchemy import ARRAY, ForeignKey, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+from api.db import db
 
-class Base(DeclarativeBase):
-    pass
+# class Base(db.Base):
+#     pass
 
 
-class User(Base):
+class User(db.Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -18,7 +20,7 @@ class User(Base):
         return f"UserBase(id={self.id}, name={self.name}, email={self.email}, password={self.password})"
 
 
-class Request(Base):
+class Request(db.Base):
     __tablename__ = "requests"
 
     id: Mapped[int] = mapped_column(primary_key=True)
