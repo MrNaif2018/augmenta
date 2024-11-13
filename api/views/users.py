@@ -1,10 +1,6 @@
-import sqlalchemy
-from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-from sqlalchemy.exc import IntegrityError
+from fastapi import APIRouter
 
-from api import crud, models, schemes, utils
+from api import crud, schemes, utils
 
 # from api.db import get_db
 

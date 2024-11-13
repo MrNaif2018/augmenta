@@ -1,21 +1,5 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-# class CreateUser(BaseModel):
-#     name: str
-#     email: str
-#     password: str
-
-
-# class User(BaseModel):
-#     name: str
-#     email: str
-
-#     model_config = ConfigDict(from_attributes=True, extra="ignore")
-
-
-# class UserIn(User):
-#     password: str
-
 
 class BaseUser(BaseModel):
     email: EmailStr
@@ -33,4 +17,36 @@ class User(BaseUser):
 
 
 class DisplayUser(BaseUser):
+    id: int
+
+
+class CreateRequest(BaseModel):
+    user_id: int
+    name: str
+    logo: str
+    short_descr: str
+    sites: list[str]
+    contacts: list[str]
+    socnets: list[str]
+    int_facts: list[str]
+    short_hist: str
+    partners: list[str]
+    capital: str
+    ownership: str
+    jurisdiction: str
+    products: list[str]
+    products_info: list[str]
+    products_logo: list[str]
+    employees_num: int
+    management: list[str]
+    branches: list[str]
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UpdateRequest(CreateRequest):
+    pass
+
+
+class DisplayRequest(CreateRequest):
     id: int

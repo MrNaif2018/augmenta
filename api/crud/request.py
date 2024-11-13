@@ -1,42 +1,36 @@
-from sqlalchemy import select
+from fastapi import HTTPException
+from sqlalchemy.exc import IntegrityError
 
-# from api.db import Session
-from api.models import Request
-
-
-def create(request: Request):
-    with Session.begin() as session:
-        try:
-            session.add(request)
-        except Exception:
-            return False
-        return True
+from api import models, schemes
 
 
-def get_by_id(id: int):
-    with Session.begin() as session:
-        request_select = select(Request).where(Request.id == id)
-        request = session.scalar(request_select)
-        return request
+def create(data: schemes.CreateRequest):
+    try:
+        obj = models.Request(**data.model_dump())
+        obj.save()
+        return obj
+    except IntegrityError as e:
+        raise HTTPException(422, str(e.orig))
 
 
-def get_by_user_id(user_id: int):
-    with Session.begin() as session:
-        request_select = select(Request).where(Request.user_id == user_id)
-        request = session.scalars(request_select).fetchall()
-        return request
+def get_by_id(model_id: int, raise_exception=True):
+    model = models.Request.query.where(models.Request.id == model_id).first()
+    if model is None and raise_exception:
+        raise HTTPException(404, f"{models.Request.__name__} with id {model_id} not found")
+    return model
 
 
-def update(new_request: Request):
-    with Session.begin() as session:
-        session.merge(new_request)
+def get_all():
+    return models.Request.query.all()
 
 
-def delete(id: int):
-    with Session.begin() as session:
-        request_select = select(Request).where(Request.id == id)
-        request = session.scalar(request_select)
-        if request == None:
-            return False
-        session.delete(request)
-        return True
+def update(obj: models.Request, new_obj: schemes.UpdateRequest):
+    obj.update(**new_obj.model_dump(exclude_unset=True))
+    obj.save()
+    return obj
+
+
+def delete(model_id: int):
+    obj = get_by_id(model_id)
+    obj.delete()
+    return obj

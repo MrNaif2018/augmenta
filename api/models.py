@@ -1,11 +1,7 @@
-from fastapi_sqlalchemy import ModelBase, SQLAlchemy
 from sqlalchemy import ARRAY, ForeignKey, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
 from api.db import db
-
-# class Base(db.Base):
-#     pass
 
 
 class User(db.Base):

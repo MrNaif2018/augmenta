@@ -1,10 +1,4 @@
-import typing
-from contextvars import ContextVar
-
 from fastapi_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session as sqla_session
-from sqlalchemy.orm import sessionmaker
 
 # from api.models import Base
 from api.settings import Settings
