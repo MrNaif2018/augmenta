@@ -1,0 +1,11 @@
+alembic
+email-validator
+fastapi
+git+https://github.com/mfreeborn/fastapi-sqlalchemy@master
+hiredis
+psycopg2-binary
+pwdlib[bcrypt]
+pydantic-settings
+redis
+sqlalchemy
+uvicorn[standard]

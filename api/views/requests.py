@@ -40,9 +40,7 @@ def get_all_requests(user_id: int):
 def get_request(id: int):
     request = requests.get_by_id(id)
     if request is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Request not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Request not found")
     return request
 
 
@@ -60,9 +58,7 @@ def add_request(user_id: int, request: Request):
 @router.delete("/delete/{id}")
 def delete_request(id: int):
     if not requests.delete(id):
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Request not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Request not found")
     return JSONResponse(
         content={"message": "The request has been successfully deleted"},
         status_code=status.HTTP_200_OK,

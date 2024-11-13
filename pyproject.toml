@@ -1,0 +1,28 @@
+[tool.black]
+line-length = 127
+preview = true
+
+[tool.isort]
+profile = "black"
+line_length = 127
+
+[tool.pytest.ini_options]
+addopts = ["-n", "auto", "--cov=.", "--cov-report", "term-missing"]
+filterwarnings = [
+    "error::DeprecationWarning",
+    "error::PendingDeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "main.py",
+    "worker.py",
+    "alembic/**",
+    "tests/**",
+    "venv/**",
+    "env/**",
+    "api/tasks.py",
+    "api/settings.py",
+    "*__init__.py",
+]
