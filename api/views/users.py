@@ -24,10 +24,10 @@ def get_all_users():
 
 
 @router.get("/{model_id}", response_model=schemes.DisplayUser)
-def get_user(model_id: int):
+def get_user(model_id: str):
     return crud.users.get_by_id(model_id)
 
 
 @router.delete("/{model_id}", response_model=schemes.DisplayUser)
-def delete_user(model_id: int):
+def delete_user(model_id: str):
     return crud.users.delete(model_id)

@@ -9,3 +9,14 @@ pydantic-settings
 redis
 sqlalchemy
 uvicorn[standard]
+langchain
+langchain-community
+langchain-chroma
+langchain-openai
+langchain-ollama
+duckduckgo-search
+wikipedia
+beautifulsoup4
+lxml[html_clean]
+fake_useragent
+python-ulid

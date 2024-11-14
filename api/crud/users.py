@@ -1,12 +1,15 @@
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
+from ulid import ULID
 
 from api import models, schemes
 
 
 def create(user: schemes.CreateUser):
     try:
-        obj = models.User(**user.model_dump())
+        data = user.model_dump()
+        data["id"] = str(ULID())
+        obj = models.User(**data)
         obj.save()
         return obj
     except IntegrityError as e:

@@ -17,29 +17,11 @@ class User(BaseUser):
 
 
 class DisplayUser(BaseUser):
-    id: int
+    id: str
 
 
 class CreateRequest(BaseModel):
-    user_id: int
-    name: str
-    logo: str
-    short_descr: str
-    sites: list[str]
-    contacts: list[str]
-    socnets: list[str]
-    int_facts: list[str]
-    short_hist: str
-    partners: list[str]
-    capital: str
-    ownership: str
-    jurisdiction: str
-    products: list[str]
-    products_info: list[str]
-    products_logo: list[str]
-    employees_num: int
-    management: list[str]
-    branches: list[str]
+    data: dict
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -49,4 +31,8 @@ class UpdateRequest(CreateRequest):
 
 
 class DisplayRequest(CreateRequest):
-    id: int
+    id: str
+
+
+class LookupParams(BaseModel):
+    name: str
