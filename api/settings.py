@@ -1,3 +1,5 @@
+import sys
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,6 +16,8 @@ class Settings(BaseSettings):
 
     @property
     def connection_str(self):
+        if "pytest" in sys.modules:
+            self.db_name += "_test"
         return f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
 
