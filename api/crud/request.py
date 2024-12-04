@@ -12,7 +12,7 @@ def create(data: schemes.CreateRequest):
         obj = models.Request(**data)
         obj.save()
         return obj
-    except IntegrityError as e:
+    except IntegrityError as e:  # pragma: no cover
         raise HTTPException(422, str(e.orig))
 
 

@@ -21,5 +21,6 @@ def search_request(name: str):
 
 
 @router.delete("/{model_id}")
+@router.delete("/{model_id}", response_model=schemes.DisplayRequest)
 def delete_request(model_id: str):
     return crud.request.delete(model_id)
