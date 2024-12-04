@@ -40,6 +40,11 @@ def test_get_user(client, user):
     assert response.json() == user
 
 
+def test_get_user_exception(client, user):
+    response = client.get("/users/1")
+    assert response.status_code == 404
+
+
 def test_delete_user(client, user):
     responce = client.delete(f"/users/{user['id']}")
     assert responce.status_code == 200
