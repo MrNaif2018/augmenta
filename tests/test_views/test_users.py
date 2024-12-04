@@ -16,7 +16,7 @@ def test_create_user(user):
     assert user.items() >= user_json["get"].items()
 
 
-def test_create_user_exception(client):
+def test_create_user_exception(client, user):
     response = client.post("/users", json=user_json["create"])
     assert response.status_code == 422
 
