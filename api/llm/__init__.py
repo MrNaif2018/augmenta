@@ -11,11 +11,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from api.settings import settings
 
-# llm = ChatOllama(model="llama3:8b")
+llm = ChatOllama(model="llama3:8b")
 
 API_KEY = settings.openai_api_key
 
-llm = ChatOpenAI(model="gpt-4o-mini", api_key=API_KEY)
+# llm = ChatOpenAI(model="gpt-4o-mini", api_key=API_KEY)
 
 
 def prepare_data(data):

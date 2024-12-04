@@ -7,7 +7,7 @@ profile = "black"
 line_length = 127
 
 [tool.pytest.ini_options]
-addopts = ["-n", "auto", "--cov=.", "--cov-report", "term-missing"]
+addopts = ["--cov=.", "--cov-report", "term-missing"]
 filterwarnings = [
     "error::DeprecationWarning",
     "error::PendingDeprecationWarning",

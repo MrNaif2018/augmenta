@@ -1,0 +1,20 @@
+{
+    "create":{
+        "email":"test@test.com",
+        "name":"test",
+        "password":"test123"
+    },
+    "update":{
+        "email":"test1@test.com",
+        "name":"test1",
+        "password":"123test"
+    },
+    "get":{
+        "email":"test@test.com",
+        "name":"test"
+    },
+    "get_updated":{
+        "email":"test1@test.com",
+        "name":"test1"
+    }
+}
