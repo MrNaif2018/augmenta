@@ -57,7 +57,11 @@ class CrunchbaseParser(BaseParser):
         parsed = {
             "name": properties["title"],
             "website": more_about["website"]["value"],
-            "company_type": more_about["ipo_status"] if "ipo_status" in more_about else more_about["investor_type"][0],
+            "company_type": (
+                more_about["ipo_status"]
+                if "ipo_status" in more_about
+                else (more_about["investor_type"][0] if "investor_type" in more_about else None)
+            ),
             "num_employees": num_employees,
             "location": location_data,
             "crunchbase_rank": (

@@ -12,7 +12,7 @@ class User(db.Base):
     email: Mapped[str]
     password: Mapped[str]
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return f"UserBase(id={self.id}, name={self.name}, email={self.email}, password={self.password})"
 
 
