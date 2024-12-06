@@ -28,15 +28,6 @@ def mock_duck_invoke(mocker):
     return mocker.patch("langchain_community.tools.DuckDuckGoSearchResults.invoke", new=duck_invoke)
 
 
-# @pytest.fixture
-# def mock_crunch_search_invoke(mocker):
-#     return mocker.patch.object(
-#         api.parsers.duckduckgo.crunchbase_searcher,
-#         "invoke",
-#         return_value=json.dumps([{"link": "crunchbase.com/organization/test"}]),
-#     )
-
-
 @pytest.fixture
 def mock_crunch_parser(mocker):
     return mocker.patch("api.parsers.crunchbase.CrunchbaseParser.parse", return_value=request_json["create"])
