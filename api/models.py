@@ -1,4 +1,4 @@
-from sqlalchemy import JSON
+from sqlalchemy import ARRAY, JSON, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from api.db import db
@@ -21,3 +21,12 @@ class Request(db.Base):
 
     id: Mapped[str] = mapped_column(primary_key=True)
     data = mapped_column(JSON)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=True)
+
+
+class Token(db.Base):
+    __tablename__ = "tokens"
+
+    id: Mapped[str] = mapped_column(primary_key=True)
+    scopes: Mapped[list[str]] = mapped_column(ARRAY(Text))
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))

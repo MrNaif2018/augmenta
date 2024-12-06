@@ -1,6 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Security
 
-from api import crud, schemes
+from api import crud, models, schemes
+from api.auth import AuthDependency
 from api.llm import llm_summary
 from api.parsers import parse
 
@@ -8,7 +9,7 @@ router = APIRouter()
 
 
 @router.post("")
-def lookup_company(params: schemes.LookupParams):
+def lookup_company(params: schemes.LookupParams, user: models.User = Security(AuthDependency(token_required=False))):
     duckduckgo_result = parse("duckduckgo.com", params.name)
     wikipedia_result = parse("wikipedia.org", params.name)
     crunchbase_org = duckduckgo_result["crunchbase_org"] or params.name
@@ -33,5 +34,6 @@ def lookup_company(params: schemes.LookupParams):
     }
     if "name" not in data:
         data["name"] = params.name
-    request_id = crud.request.create(schemes.CreateRequest(data=data)).id
-    return {"request_id": request_id, **data}
+    user_id = user.id if user else None
+    request_id = crud.request.create(schemes.CreateRequest(data=data, user_id=user_id)).id
+    return {"request_id": request_id, "user_id": user_id, **data}
