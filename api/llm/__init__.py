@@ -11,11 +11,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from api.settings import settings
 
-llm = ChatOllama(model="llama3:8b")
-
 API_KEY = settings.openai_api_key
-
-# llm = ChatOpenAI(model="gpt-4o-mini", api_key=API_KEY)
 
 
 def prepare_data(data):
@@ -25,13 +21,18 @@ def prepare_data(data):
 
 
 def llm_summary(name, results):
+    if API_KEY:
+        llm = ChatOpenAI(model="gpt-4o-mini", api_key=API_KEY)
+        embedding = OpenAIEmbeddings(api_key=API_KEY)
+    else:
+        llm = ChatOllama(model="llama3:8b")
+        embedding = OllamaEmbeddings(model="llama3:8b")
     documents = [
         Document(page_content=f"{prepare_data(result['data'])}", metadata={"source": result["source"]}) for result in results
     ]
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(documents)
-    # vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(api_key=API_KEY))
-    vectorstore = Chroma.from_documents(documents=splits, embedding=OllamaEmbeddings(model="llama3:8b"))
+    vectorstore = Chroma.from_documents(documents=splits, embedding=embedding)
     retriever = vectorstore.as_retriever()
     prompt = hub.pull("rlm/rag-prompt")
 
