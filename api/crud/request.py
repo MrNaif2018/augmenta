@@ -45,3 +45,7 @@ def delete(model_id: int):
     obj = get_by_id(model_id)
     obj.delete()
     return obj
+
+
+def list_all_by_user(user: models.User):
+    return models.Request.query.where(models.Request.user_id == user.id).all()

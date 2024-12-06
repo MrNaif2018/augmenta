@@ -37,3 +37,10 @@ def delete(model_id: int):
     user = get_by_id(model_id)
     user.delete()
     return user
+
+
+def validate_user(email, password):
+    user = models.User.query.where(models.User.email == email).first()
+    if user is None or user.password != password:  # TODO: improve
+        raise HTTPException(401, "Invalid email or password")
+    return user

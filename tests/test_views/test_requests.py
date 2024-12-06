@@ -12,7 +12,7 @@ request_json = json.load(open("./tests/data/requests.json"))
 def company_info():
     with db():
         request = crud.request.create(schemes.CreateRequest(data=request_json["create"]))
-        request_dict = {"id": request.id, "data": request.data}
+        request_dict = {"id": request.id, "data": request.data, "user_id": None}
         return request_dict
 
 

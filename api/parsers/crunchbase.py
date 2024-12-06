@@ -40,8 +40,12 @@ class CrunchbaseParser(BaseParser):
         for org in similar_orgs:
             competitor = {
                 "name": org["source"]["value"],
-                "logo": "https://images.crunchbase.com/image/upload/c_pad,h_45,w_45,f_auto,b_white,q_auto:eco,dpr_4/"
-                + org["source"]["image_id"],
+                "logo": (
+                    "https://images.crunchbase.com/image/upload/c_pad,h_45,w_45,f_auto,b_white,q_auto:eco,dpr_4/"
+                    + org["source"]["image_id"]
+                    if "image_id" in org["source"]
+                    else None
+                ),
                 "description": org.get("source_short_description", ""),
                 "locations": [loc["value"] for loc in org["source_locations"]],
                 "categories": [cat["value"] for cat in org.get("source_categories", [])],

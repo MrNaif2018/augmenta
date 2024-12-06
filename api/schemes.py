@@ -22,6 +22,7 @@ class DisplayUser(BaseUser):
 
 class CreateRequest(BaseModel):
     data: dict
+    user_id: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -36,3 +37,15 @@ class DisplayRequest(CreateRequest):
 
 class LookupParams(BaseModel):
     name: str
+
+
+class CreateToken(BaseModel):
+    email: EmailStr
+    password: str
+    scopes: list[str]
+
+
+class DisplayToken(BaseModel):
+    id: str
+    user_id: str
+    scopes: list[str]
