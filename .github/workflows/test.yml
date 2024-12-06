@@ -11,6 +11,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: augmenta_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -25,3 +36,5 @@ jobs:
         run: |
           pip install -r requirements/test.txt
           pytest --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
+        env:
+          DB_HOST: postgres
