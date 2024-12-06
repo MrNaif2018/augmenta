@@ -42,7 +42,7 @@ def mock_generic_parser(mocker):
 
 @pytest.fixture
 def mock_llm_summary(mocker):
-    return mocker.patch("api.llm.llm_summary", return_value=ai_result)
+    return mocker.patch("api.views.lookup.llm_summary", return_value=ai_result)
 
 
 def test_lookup_company(
