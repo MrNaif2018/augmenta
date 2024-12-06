@@ -34,6 +34,13 @@ def mock_crunch_parser(mocker):
 
 
 @pytest.fixture
+def mock_crunch_parser_without_name(mocker):
+    value = request_json["create"]
+    value.pop("name")
+    return mocker.patch("api.parsers.crunchbase.CrunchbaseParser.parse", return_value=value)
+
+
+@pytest.fixture
 def mock_generic_parser(mocker):
     return mocker.patch("langchain_community.document_loaders.WebBaseLoader.load", return_value=[request_json["create"]])
 
@@ -48,6 +55,27 @@ def test_lookup_company(
     mock_wiki_invoke,
     mock_duck_invoke,
     mock_crunch_parser,
+    mock_generic_parser,
+    mock_llm_summary,
+):
+    response = client.post("/lookup", json={"name": "test"})
+    assert response.status_code == 200
+    assert (
+        response.json().items()
+        >= {
+            **request_json["create"],
+            **ai_result,
+            "wikipedia": request_json["create"],
+            "duckduckgo": request_json["create"],
+        }.items()
+    )
+
+
+def test_lookup_company_without_name(
+    client,
+    mock_wiki_invoke,
+    mock_duck_invoke,
+    mock_crunch_parser_without_name,
     mock_generic_parser,
     mock_llm_summary,
 ):
