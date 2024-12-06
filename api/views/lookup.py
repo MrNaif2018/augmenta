@@ -31,5 +31,7 @@ def lookup_company(params: schemes.LookupParams):
         "wikipedia": wikipedia_result,
         "duckduckgo": duckduckgo_result["company"],
     }
+    if "name" not in data:
+        data["name"] = params.name
     request_id = crud.request.create(schemes.CreateRequest(data=data)).id
     return {"request_id": request_id, **data}
