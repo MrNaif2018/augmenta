@@ -23,6 +23,14 @@ def get_by_id(model_id: int, raise_exception=True):
     return model
 
 
+def search(name: str):
+    requests = models.Request.query.all()
+    for request in requests:
+        if name.lower() == request.data.get("name", "").lower():
+            return request
+    raise HTTPException(404, f"{models.Request.__name__} with name {name} not found")
+
+
 def get_all():
     return models.Request.query.all()
 

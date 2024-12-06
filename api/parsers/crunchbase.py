@@ -72,7 +72,7 @@ class CrunchbaseParser(BaseParser):
             "faqs": faqs,
             "semrush_global_rank": cards["semrush_summary"].get("semrush_global_rank", None),
             "semrush_visits_latest_month": cards["semrush_summary"].get("semrush_visits_latest_month", None),
-            "founded_on": cards["overview_fields_extended"]["founded_on"],
+            "founded_on": cards["overview_fields_extended"].get("founded_on", None),
         }
         return parsed
 
