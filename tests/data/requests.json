@@ -4,7 +4,8 @@
         "country":"test",
         "employees":12345,
         "sites":["test1.com", "test2.by", "test3.io"],
-        "socnets":["youtube", "instagramm"]
+        "socnets":["youtube", "instagramm"],
+        "website":"test.com"
     },
     "update":{
         "name":"test1",
