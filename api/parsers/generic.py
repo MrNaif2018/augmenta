@@ -8,5 +8,5 @@ class GenericParser(BaseParser):
         try:
             results = WebBaseLoader([data]).load()
             return results[0] if results else None
-        except Exception:
+        except Exception:  # pragma: no cover
             return None
