@@ -44,6 +44,17 @@ def test_request_update(company_info):
         assert updated_dict["data"] == request_json["update"]
 
 
+def test_search_request(client, company_info):
+    response = client.get("/requests/search/test")
+    assert response.status_code == 200
+    assert response.json() == company_info
+
+
+def test_search_request_exception(client, company_info):
+    response = client.get("/requests/search/test1")
+    assert response.status_code == 404
+
+
 def test_delete_request(client, company_info):
     response = client.delete(f"/requests/{company_info['id']}")
     assert response.status_code == 200
