@@ -45,6 +45,15 @@ def mock_generic_parser(mocker):
     return mocker.patch("langchain_community.document_loaders.WebBaseLoader.load", return_value=[request_json["create"]])
 
 
+def load_exception():
+    raise Exception
+
+
+@pytest.fixture
+def mock_generic_parser_exception(mocker):
+    return mocker.patch("langchain_community.document_loaders.WebBaseLoader.load", new=load_exception)
+
+
 @pytest.fixture
 def mock_llm_summary(mocker):
     return mocker.patch("api.views.lookup.llm_summary", return_value=ai_result)
@@ -77,6 +86,27 @@ def test_lookup_company_without_name(
     mock_duck_invoke,
     mock_crunch_parser_without_name,
     mock_generic_parser,
+    mock_llm_summary,
+):
+    response = client.post("/lookup", json={"name": "test"})
+    assert response.status_code == 200
+    assert (
+        response.json().items()
+        >= {
+            **request_json["create"],
+            **ai_result,
+            "wikipedia": request_json["create"],
+            "duckduckgo": request_json["create"],
+        }.items()
+    )
+
+
+def test_lookup_company_website_exception(
+    client,
+    mock_wiki_invoke,
+    mock_duck_invoke,
+    mock_crunch_parser,
+    mock_generic_parser_exception,
     mock_llm_summary,
 ):
     response = client.post("/lookup", json={"name": "test"})
