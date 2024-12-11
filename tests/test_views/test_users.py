@@ -9,7 +9,9 @@ user_json = json.load(open("./tests/data/users.json"))
 def user(client):
     response = client.post("/users", json=user_json["create"])
     assert response.status_code == 200
-    return response.json()
+    data = response.json()
+    assert len(data.pop("token")) > 30
+    return data
 
 
 def test_create_user(user):

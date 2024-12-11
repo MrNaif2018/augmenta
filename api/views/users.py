@@ -7,9 +7,16 @@ from api import crud, schemes, utils
 router = APIRouter()
 
 
-@router.post("", response_model=schemes.DisplayUser)
+class SignupResponse(schemes.DisplayUser):
+    token: str
+
+
+@router.post("", response_model=SignupResponse)
 async def create_user(user: schemes.CreateUser):
-    return crud.users.create(user)
+    user = crud.users.create(user)
+    data = schemes.DisplayUser.model_validate(user).model_dump()
+    data["token"] = crud.token.create({"user_id": user.id, "scopes": ["full_control"]}).id
+    return data
 
 
 @router.patch("/{model_id}", response_model=schemes.DisplayUser)
