@@ -20,13 +20,13 @@ def test_get_requests(client, company_info):
     response = client.get("/requests")
     assert response.status_code == 200
     assert len(response.json()) == 1
-    assert response.json()[0] == company_info
+    assert response.json()[0].items() >= company_info.items()
 
 
 def test_get_request(client, company_info):
     response = client.get(f"/requests/{company_info['id']}")
     assert response.status_code == 200
-    assert response.json() == company_info
+    assert response.json().items() >= company_info.items()
 
 
 def test_get_request_exception(client):
@@ -47,7 +47,7 @@ def test_request_update(company_info):
 def test_search_request(client, company_info):
     response = client.get("/requests/search/test")
     assert response.status_code == 200
-    assert response.json() == company_info
+    assert response.json().items() >= company_info.items()
 
 
 def test_search_request_exception(client, company_info):
@@ -58,4 +58,4 @@ def test_search_request_exception(client, company_info):
 def test_delete_request(client, company_info):
     response = client.delete(f"/requests/{company_info['id']}")
     assert response.status_code == 200
-    assert response.json() == company_info
+    assert response.json().items() >= company_info.items()

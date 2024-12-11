@@ -1,4 +1,6 @@
-from sqlalchemy import ARRAY, JSON, ForeignKey, Text
+from datetime import datetime
+
+from sqlalchemy import ARRAY, JSON, DateTime, ForeignKey, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from api.db import db
@@ -22,6 +24,7 @@ class Request(db.Base):
     id: Mapped[str] = mapped_column(primary_key=True)
     data = mapped_column(JSON)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=True)
+    created: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class Token(db.Base):

@@ -48,4 +48,4 @@ def delete(model_id: int):
 
 
 def list_all_by_user(user: models.User):
-    return models.Request.query.where(models.Request.user_id == user.id).all()
+    return models.Request.query.where(models.Request.user_id == user.id).order_by(models.Request.created.desc()).all()

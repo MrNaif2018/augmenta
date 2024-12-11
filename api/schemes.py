@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -33,6 +35,7 @@ class UpdateRequest(CreateRequest):
 
 class DisplayRequest(CreateRequest):
     id: str
+    created: datetime
 
 
 class LookupParams(BaseModel):
